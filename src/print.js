@@ -16,25 +16,32 @@ function recordDate(invoice) {
     return invoice;
 }
 
-function printDetail(invoice) {
+function printDetail(invoiceData) {
     let result =
         '***********************\n' +
         '**** Customer Owes ****\n' +
         '***********************\n';
 
-    result += `name: ${invoice.customer}
-amount: ${invoice.outstanding}
-amount: ${invoice.dueDate.toLocaleDateString()}`;
+    result += `name: ${invoiceData.customer}
+amount: ${invoiceData.outstanding}
+amount: ${invoiceData.dueDate.toLocaleDateString()}`;
 
     return result;
 }
 
+function createInvoiceData(invoice) {
+    let invoiceData = Object.assign({}, invoice);
+
+    invoiceData = calculateOutstanding(invoiceData);
+    invoiceData = recordDate(invoiceData);
+
+    return invoiceData;
+}
+
 function printOwing(invoice) {
-    invoice = calculateOutstanding(invoice);
+    const invoiceData = createInvoiceData(invoice);
 
-    invoice = recordDate(invoice);
-
-    return printDetail(invoice);
+    return printDetail(invoiceData);
 }
 
 module.exports = printOwing;
