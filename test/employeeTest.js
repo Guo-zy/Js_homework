@@ -1,7 +1,7 @@
-const empolyeeTest = require('ava');
+const employeeTest = require('ava');
 const Employee = require('../src/employee');
 
-empolyeeTest('employee test case1 :  input programmer of wrong type', t => {
+employeeTest('employee test case1 :  input programmer of wrong type', t => {
     try {
         //given
         //when
@@ -13,7 +13,7 @@ empolyeeTest('employee test case1 :  input programmer of wrong type', t => {
     }
 });
 
-empolyeeTest(
+employeeTest(
     'employee test case2 :  input name is Yancy and type is manager',
     t => {
         //given
@@ -24,7 +24,7 @@ empolyeeTest(
     }
 );
 
-empolyeeTest(
+employeeTest(
     'employee test case3 :  input name is Yancy and type is salesman',
     t => {
         //given
@@ -35,7 +35,7 @@ empolyeeTest(
     }
 );
 
-empolyeeTest(
+employeeTest(
     'employee test case4 :  input name is Yancy and type is engineer',
     t => {
         //given
