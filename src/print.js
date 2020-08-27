@@ -16,23 +16,25 @@ function recordDate(invoice) {
     return invoice;
 }
 
-function printOwing(invoice) {
-    let outstanding = 0;
+function printDetail(invoice) {
     let result =
         '***********************\n' +
         '**** Customer Owes ****\n' +
         '***********************\n';
 
-    invoice = calculateOutstanding(invoice);
-
-    invoice = recordDate(invoice);
-
-    // print details
     result += `name: ${invoice.customer}
 amount: ${invoice.outstanding}
 amount: ${invoice.dueDate.toLocaleDateString()}`;
 
     return result;
+}
+
+function printOwing(invoice) {
+    invoice = calculateOutstanding(invoice);
+
+    invoice = recordDate(invoice);
+
+    return printDetail(invoice);
 }
 
 module.exports = printOwing;
