@@ -23,3 +23,14 @@ rankTest(
         t.is(res, `Yancy (manager)`);
     }
 );
+
+rankTest(
+    'employee test case3 :  input name is Yancy and type is salesman',
+    t => {
+        //given
+        //when
+        const res = new Employee('Yancy', 'salesman').toString();
+        //then
+        t.is(res, `Yancy (salesman)`);
+    }
+);
