@@ -37,6 +37,7 @@ function calculateResultByLengthFromHistory(history, tmp, count) {
 
 function voyageProfitFactor(voyage, history) {
   let result = 2;
+
   result += calculateResultByZoneFromVoyage(voyage, 1)
 
   if (voyage.zone === 'china' && hasChina(history)) {
@@ -52,15 +53,17 @@ function voyageProfitFactor(voyage, history) {
   return result;
 }
 
+function getRating(vpf, vr, chr) {
+  return vpf * 3 > vr + chr * 2 ? 'A' : 'B';
+}
+
 function rating(voyage, history) {
   const vpf = voyageProfitFactor(voyage, history);
   const vr = voyageRisk(voyage);
   const chr = captainHistoryRisk(voyage, history);
-  if (vpf * 3 > (vr + chr * 2)) {
-    return 'A';
-  } else {
-    return 'B';
-  }
+
+  return getRating(vpf, vr, chr)
+
 }
 
 module.exports = rating;
