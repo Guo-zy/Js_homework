@@ -106,3 +106,23 @@ deliveryTest('deliveryTest case5 : input deliveryState is other, and isRush is t
     t.is(res, 4)
 
 });
+
+deliveryTest('deliveryTest case6 : input deliveryState is MA, and isRush is false', t => {
+    //given
+    const anOrder = {
+        deliveryState: 'MA',
+        placedOn: {
+            plusDays(deliveryTime) {
+                return deliveryTime
+            }
+        }
+    };
+    const isRush = false;
+
+    //when
+    const res = deliveryDate(anOrder, isRush);
+
+    //then
+    t.is(res, 4)
+
+});
