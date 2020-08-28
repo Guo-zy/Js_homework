@@ -29,7 +29,7 @@ deliveryTest('deliveryTest case1 : input deliveryState is MA, and isRush is true
 deliveryTest('deliveryTest case2 : input deliveryState is CT, and isRush is true', t => {
     //given
     const anOrder = {
-        deliveryState: 'MA',
+        deliveryState: 'CT',
         placedOn: {
             plusDays(deliveryTime) {
                 return deliveryTime
@@ -43,5 +43,25 @@ deliveryTest('deliveryTest case2 : input deliveryState is CT, and isRush is true
 
     //then
     t.is(res, 2)
+
+});
+
+deliveryTest('deliveryTest case3 : input deliveryState is NY, and isRush is true', t => {
+    //given
+    const anOrder = {
+        deliveryState: 'NY',
+        placedOn: {
+            plusDays(deliveryTime) {
+                return deliveryTime
+            }
+        }
+    };
+    const isRush = true;
+
+    //when
+    const res = deliveryDate(anOrder, isRush);
+
+    //then
+    t.is(res, 3)
 
 });
