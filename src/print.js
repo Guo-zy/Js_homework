@@ -1,5 +1,5 @@
 function calculateOutstanding(invoice) {
-    invoice.outstanding = invoice.outstanding ? invoice.outstanding : 0;
+    invoice.outstanding =  0;
     invoice.borderSpacing.forEach(o => {
         invoice.outstanding += o.amount;
     });
