@@ -1,13 +1,8 @@
 function voyageRisk(voyage) {
   let result = 1;
-  if (voyage.length > 4) {
-    result += 2;
-  }
-  if (voyage.length > 8) {
-    result += voyage.length - 8;
-  }
-  result += calculateResultByZoneFromVoyage(voyage , 4)
-
+  result += calculateResultByLengthFromVoyage(voyage , 4 , 2);
+  result += calculateResultByLengthFromVoyage(voyage , 8 , voyage.length - 8);
+  result += calculateResultByZoneFromVoyage(voyage, 4)
   return Math.max(result, 0);
 }
 
@@ -17,9 +12,7 @@ function hasChina(history) {
 
 function captainHistoryRisk(voyage, history) {
   let result = 1;
-  if (history.length < 5) {
-    result += 4;
-  }
+  result += calculateResultByLengthFromVoyage(voyage , 5 , 4);
   result += history.filter(v => v.profit < 0).length;
   if (voyage.zone === 'china' && hasChina(history)) {
     result -= 2;
@@ -27,38 +20,34 @@ function captainHistoryRisk(voyage, history) {
   return Math.max(result, 0);
 }
 
-
-
-function calculateResultByZoneFromVoyage(voyage , count) {
+function calculateResultByZoneFromVoyage(voyage, count) {
   return [
     'china',
     'east-indies',
   ].includes(voyage.zone) ? count : 0;
 }
 
+function calculateResultByLengthFromVoyage(voyage, tmp, count) {
+  return voyage.length > tmp ? count : 0;
+}
 
 function voyageProfitFactor(voyage, history) {
   let result = 2;
-  result += calculateResultByZoneFromVoyage(voyage , 1)
+  result += calculateResultByZoneFromVoyage(voyage, 1)
 
   if (voyage.zone === 'china' && hasChina(history)) {
     result += 3;
     if (history.length > 10) {
       result += 1;
     }
-    if (voyage.length > 12) {
-      result += 1;
-    }
-    if (voyage.length > 18) {
-      result -= 1;
-    }
+    result += calculateResultByLengthFromVoyage(voyage, 12, 1);
+    result += calculateResultByLengthFromVoyage(voyage, 18, -1);
   } else {
     if (history.length > 8) {
       result += 1;
     }
-    if (voyage.length > 14) {
-      result -= 1;
-    }
+    result += calculateResultByLengthFromVoyage(voyage, 14, -1);
+
   }
   return result;
 }
