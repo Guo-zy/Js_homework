@@ -20,6 +20,7 @@ function captainHistoryRisk(voyage, history) {
   return Math.max(result, 0);
 }
 
+
 function calculateResultByZoneFromVoyage(voyage, count) {
   return [
     'china',
