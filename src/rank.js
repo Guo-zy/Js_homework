@@ -1,4 +1,4 @@
-function voyageRisk (voyage) {
+function voyageRisk(voyage) {
   let result = 1;
   if (voyage.length > 4) {
     result += 2;
@@ -6,20 +6,16 @@ function voyageRisk (voyage) {
   if (voyage.length > 8) {
     result += voyage.length - 8;
   }
-  if ([
-    'china',
-    'east-indies',
-  ].includes(voyage.zone)) {
-    result += 4;
-  }
+  result += calculateResultByZoneFromVoyage(voyage , 4)
+
   return Math.max(result, 0);
 }
 
-function hasChina (history) {
+function hasChina(history) {
   return history.some(v => 'china' === v.zone);
 }
 
-function captainHistoryRisk (voyage, history) {
+function captainHistoryRisk(voyage, history) {
   let result = 1;
   if (history.length < 5) {
     result += 4;
@@ -31,14 +27,20 @@ function captainHistoryRisk (voyage, history) {
   return Math.max(result, 0);
 }
 
-function calculateResultByZoneFromVoyage(voyage , zoneName){
-    return voyage.zone === zoneName ? 1 : 0; 
+
+
+function calculateResultByZoneFromVoyage(voyage , count) {
+  return [
+    'china',
+    'east-indies',
+  ].includes(voyage.zone) ? count : 0;
 }
 
-function voyageProfitFactor (voyage, history) {
+
+function voyageProfitFactor(voyage, history) {
   let result = 2;
-  result += calculateResultByZoneFromVoyage(voyage , 'china');
-  result += calculateResultByZoneFromVoyage(voyage , 'east-indies')
+  result += calculateResultByZoneFromVoyage(voyage , 1)
+
   if (voyage.zone === 'china' && hasChina(history)) {
     result += 3;
     if (history.length > 10) {
@@ -50,8 +52,7 @@ function voyageProfitFactor (voyage, history) {
     if (voyage.length > 18) {
       result -= 1;
     }
-  }
-  else {
+  } else {
     if (history.length > 8) {
       result += 1;
     }
@@ -62,14 +63,13 @@ function voyageProfitFactor (voyage, history) {
   return result;
 }
 
-function rating (voyage, history) {
+function rating(voyage, history) {
   const vpf = voyageProfitFactor(voyage, history);
   const vr = voyageRisk(voyage);
   const chr = captainHistoryRisk(voyage, history);
   if (vpf * 3 > (vr + chr * 2)) {
     return 'A';
-  }
-  else {
+  } else {
     return 'B';
   }
 }
