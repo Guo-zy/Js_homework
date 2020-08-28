@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test"
   },
   "author": "",
   "license": "MIT",

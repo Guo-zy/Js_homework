@@ -36,8 +36,6 @@ function calculateDateisNotRush(anOrder) {
 }
 
 
-
-
 function deliveryDate(anOrder, isRush) {
   if (isRush) {
     return calculateDateisRush(anOrder)
