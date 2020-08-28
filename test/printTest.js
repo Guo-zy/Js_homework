@@ -10,7 +10,7 @@ printTest('printTest case1 : ', t => {
 ***********************
 name: Yancy
 amount: 3
-amount: 2020-9-27`
+amount: 9/27/2020`
     );
 });
 
